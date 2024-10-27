@@ -86,6 +86,7 @@ app.post('/api/cadastroBarbeiro', upload.single('imagem'), barbeiroController.ca
 app.put('/api/desativarBarbeiro', barbeiroController.desativarBarbeiro);
 app.get('/api/barbeirosAtivos', barbeiroController.barbeirosAtivos);
 app.post('/api/barbeirosBuscados', barbeiroController.barbeirosPesquisados);
+app.post('/api/buscarNomeBarbeiro', barbeiroController.buscarNomeBarbeiro);
 
 app.post('/api/cliente/id', clienteController.buscaClienteId);
 app.put('/api/atualizarCliente', clienteController.alterarCliente);

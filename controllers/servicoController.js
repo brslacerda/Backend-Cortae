@@ -6,9 +6,11 @@ const servicoController = {
     cadastroServico: async (req, res) => {
         const { nome, preco, numJanelas, descricao } = req.body;
         try {
+            const precoAjustado = preco.replace(',', '.');
+
             const novoServico = await Servico.create({
                 nome,
-                preco,
+                preco: precoAjustado,
                 numJanelas,
                 descricao
             });
@@ -82,9 +84,10 @@ const servicoController = {
     alterarServico: async (req, res) => {
         const { servicoId, nome, preco, numJanelas, descricao } = req.body;
         try {
+            const precoAjustado = preco.replace(',', '.');
             const updateData = {
                 nome,
-                preco,
+                preco:precoAjustado,
                 numJanelas,
                 descricao
             };

@@ -32,8 +32,8 @@ const barbeiroController = {
             const barbeirosAtivos = await Barbeiro.findAll({
                 where: {
                     ativo: true
-                },order:[
-                    ['nome','ASC']
+                }, order: [
+                    ['nome', 'ASC']
                 ],
                 limit: 20
             })
@@ -108,7 +108,7 @@ const barbeiroController = {
                 const imagem = req.file.filename;
                 updateData.imagem = `/uploads/${imagem}`;
             }
-            
+
             const barbeiroAtualizado = await Barbeiro.update(updateData, {
                 where: {
                     id: barbeiroId
@@ -116,12 +116,12 @@ const barbeiroController = {
             });
 
             const barbeiro = await Barbeiro.findOne({
-                attributes:['usuarioId'],
-                where:{
-                    id:barbeiroId
+                attributes: ['usuarioId'],
+                where: {
+                    id: barbeiroId
                 }
             });
-            const usuarioBarbeiroAtualizado = await Usuario.update({email},{
+            const usuarioBarbeiroAtualizado = await Usuario.update({ email }, {
                 where: {
                     id: barbeiro.usuarioId
                 }
@@ -138,7 +138,27 @@ const barbeiroController = {
         } catch (error) {
             res.status(500).json({ message: 'Erro ao alterar barbeiro', error: error.message });
         }
+    },
+    buscarNomeBarbeiro: async (req, res) => {
+        const { nome } = req.body;
+
+        try {
+            const nomeBarbeiro = await Barbeiro.findOne({
+                where: {
+                    nome: nome
+                }
+            });
+
+            if (nomeBarbeiro) {
+                return res.status(200).json(true); 
+            } else {
+                return res.status(200).json(false);
+            }
+        } catch (error) {
+            return res.status(500).json({ error: 'Erro no servidor' });
+        }
     }
+
 
 }
 module.exports = barbeiroController;
