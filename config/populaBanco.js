@@ -10,7 +10,12 @@ async function populaBanco() {
   try {
     await DefinicoesGerais.findOrCreate({
       where: { tempoJanela: 30 },
-      defaults: { endereco: '', tempoJanela: 30 }
+      defaults: { endereco: '', tempoJanela: 30, timezone: '-03' }
+    });
+
+    await DefinicoesGerais.findOrCreate({
+      where: { timezone: '-03' },
+      defaults: { endereco: '', tempoJanela: 30, timezone: '-03' }
     });
 
     const [usuario] = await Usuario.findOrCreate({

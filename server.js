@@ -128,6 +128,7 @@ app.post('/api/restricoesHorarioBabreiro', restricaoHorarioController.restricoes
 app.post('/api/cadastrarOuAtualizarRestricoesHorarioBarbeiro', restricaoHorarioController.cadastrarOuAtualizarRestricoesHorarioBarbeiro);
 
 app.get('/api/tempoJanela', definicoesGerais.tempoJanela);
+app.get('/api/getTimeZone', definicoesGerais.timezone);
 
 app.post('/api/desencriptar', criptografia.desencriptar);
 app.post('/api/encriptar', criptografia.encriptar);

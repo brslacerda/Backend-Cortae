@@ -11,6 +11,7 @@ const db = require("../config/db");
 const { enviarEmailAgendamentoConfirmado, enviarEmailAgendamentoNegado } = require("../config/mail");
 const Usuario = require("../models/Usuario");
 const moment = require('moment');
+const definicoesGerais = require("./definicoesGeraisController");
 
 const agendamentoController = {
   agendamentosAtivos: async (req, res) => {
@@ -286,9 +287,13 @@ const agendamentoController = {
           id: servicosSelecionados
         }
       });
-
-      const dataAgendada = moment(dataAgendamento).tz('UTC').format('YYYY-MM-DD HH:mm:ss');
-
+      const timezone = await DefinicoesGerais.findOne({
+        attributes: ['timezone']
+      })
+      const timeZone = timezone.timezone;
+      console.log('datafront', dataAgendamento);
+      const dataAgendada = moment(dataAgendamento).utcOffset(timeZone).utc().format('YYYY-MM-DD HH:mm:ss');
+      console.log('databack', dataAgendada);      
       const criacaoAgendamento = await Agendamento.create({
         status: status,
         dataAgendada: dataAgendada,
